@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "../styles/BillingPage.css";
+import { getStock, createBill } from "../api";
 
 export default function BillingPage({ operator }) {
   const [stock, setStock] = useState([]);
@@ -16,11 +16,12 @@ const storedOperator = JSON.parse(localStorage.getItem("operator"));
     useEffect(() => {
   if (!storedOperator) return;
 
-  axios
-    .get("http://localhost:5000/stock", {
-      params: { department: storedOperator.department }   // ✅ filter by department
+  getStock(storedOperator.id)
+    .then(res => {
+      if (res.success) {
+        setStock(res.data);
+      }
     })
-    .then(res => setStock(res.data.data))
     .catch(err => console.error(err));
 }, [storedOperator]);
 
@@ -46,7 +47,7 @@ const storedOperator = JSON.parse(localStorage.getItem("operator"));
 
   const generateBill = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/billing", {
+      const billData = {
         customer_name: customer.name,
         customer_phone: customer.phone,
         created_by: operator.username,
@@ -57,11 +58,17 @@ const storedOperator = JSON.parse(localStorage.getItem("operator"));
           quantity: c.quantity,
           price: c.price || 100
         }))
-      });
-      setBill(res.data);
-      setCart([]);
+      };
+      
+      const res = await createBill(billData);
+      if (res) {
+        setBill(res);
+        setCart([]);
+      } else {
+        alert("Billing failed");
+      }
     } catch (err) {
-      alert("Billing failed: " + (err.response?.data?.message || err.message));
+      alert("Billing failed: " + err.message);
     }
   };
 

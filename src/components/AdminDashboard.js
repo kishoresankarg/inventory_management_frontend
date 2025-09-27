@@ -8,6 +8,7 @@ import ReportExporter from "./analytics/ReportExporter"
 import "../styles/AdminDashboard.css"
 import "../styles/Analytics.css"
 import FloatingChatbot from "./FloatingChatbot"
+import { BACKEND_URL } from "../constants"
 
 const AdminDashboard = ({ operator }) => {
   const [activeTab, setActiveTab] = useState("dashboard")
@@ -78,7 +79,7 @@ const AdminDashboard = ({ operator }) => {
 
   const fetchStock = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/stock/alerts", {
+      const response = await axios.get(`${BACKEND_URL}/stock/alerts`, {
         headers: {
           "user-role": operator.role,
           "user-department": operator.department,
@@ -98,7 +99,7 @@ const AdminDashboard = ({ operator }) => {
 
   const fetchOperators = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/operators", {
+      const response = await axios.get(`${BACKEND_URL}/operators`, {
         headers: {
           "user-role": operator.role,
           "user-department": operator.department,
@@ -114,7 +115,7 @@ const AdminDashboard = ({ operator }) => {
 
   const fetchReports = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/reports", {
+      const response = await axios.get(`${BACKEND_URL}/reports`, {
         headers: {
           "user-role": operator.role,
           "user-department": operator.department,
@@ -130,7 +131,7 @@ const AdminDashboard = ({ operator }) => {
 
   const fetchStockRequests = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/low-stock-requests", {
+      const response = await axios.get(`${BACKEND_URL}/low-stock-requests`, {
         headers: {
           "user-role": operator.role,
           "user-department": operator.department,
@@ -148,7 +149,7 @@ const AdminDashboard = ({ operator }) => {
 
   const fetchVendors = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/vendors")
+      const response = await axios.get(`${BACKEND_URL}/vendors`)
       if (response.data.success) {
         setVendors(response.data.data)
       }
@@ -164,7 +165,7 @@ const AdminDashboard = ({ operator }) => {
     }
 
     try {
-      await axios.post("http://localhost:5000/stock", {
+      await axios.post(`${BACKEND_URL}/stock`, {
         ...newProduct,
         quantity: Number.parseInt(newProduct.quantity),
         threshold_value: Number.parseInt(newProduct.threshold_value),
@@ -186,7 +187,7 @@ const AdminDashboard = ({ operator }) => {
 
   const handleUpdateProduct = async (productId, updatedData) => {
     try {
-      await axios.put(`http://localhost:5000/stock/${productId}`, {
+      await axios.put(`${BACKEND_URL}/stock/${productId}`, {
         ...updatedData,
         updated_by: operator.username,
         user_role: operator.role,
@@ -206,7 +207,7 @@ const AdminDashboard = ({ operator }) => {
   const handleDeleteProduct = async (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`http://localhost:5000/stock/${productId}`, {
+        await axios.delete(`${BACKEND_URL}/stock/${productId}`, {
           data: { user_role: operator.role },
         })
 
@@ -227,7 +228,7 @@ const AdminDashboard = ({ operator }) => {
     }
 
     try {
-      await axios.post("http://localhost:5000/operators", {
+      await axios.post(`${BACKEND_URL}/operators`, {
         ...newOperator,
         user_role: operator.role,
         user_department: operator.department,
@@ -261,7 +262,7 @@ const AdminDashboard = ({ operator }) => {
         updatePayload.department = updatedData.department
       }
 
-      await axios.put(`http://localhost:5000/operators/${operatorId}`, updatePayload)
+      await axios.put(`${BACKEND_URL}/operators/${operatorId}`, updatePayload)
 
       setEditingOperator(null)
       setEditOperatorData({})
@@ -277,7 +278,7 @@ const AdminDashboard = ({ operator }) => {
   const handleDeleteOperator = async (operatorId) => {
     if (window.confirm("Are you sure you want to delete this operator?")) {
       try {
-        await axios.delete(`http://localhost:5000/operators/${operatorId}`, {
+        await axios.delete(`${BACKEND_URL}/operators/${operatorId}`, {
           data: {
             user_role: operator.role,
             user_department: operator.department,
@@ -296,7 +297,7 @@ const AdminDashboard = ({ operator }) => {
 
   const handleApproveRequest = async (requestId) => {
     try {
-      const response = await axios.put(`http://localhost:5000/low-stock-requests/${requestId}/approve`, {
+      const response = await axios.put(`${BACKEND_URL}/low-stock-requests/${requestId}/approve`, {
         approved_by: operator.id,
         user_role: operator.role,
         user_department: operator.department,
@@ -317,7 +318,7 @@ const AdminDashboard = ({ operator }) => {
 
   const handleRejectRequest = async (requestId) => {
     try {
-      await axios.put(`http://localhost:5000/low-stock-requests/${requestId}/reject`, {
+      await axios.put(`${BACKEND_URL}/low-stock-requests/${requestId}/reject`, {
         approved_by: operator.id,
         user_role: operator.role,
         user_department: operator.department,
@@ -962,7 +963,7 @@ const AdminDashboard = ({ operator }) => {
 
   const handleAddVendor = async () => {
     try {
-      await axios.post("http://localhost:5000/vendors", newVendor)
+      await axios.post(`${BACKEND_URL}/vendors`, newVendor)
       setNewVendor({
         name: "",
         email: "",

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import "../styles/HomePage.css"
+import { BACKEND_URL } from "../constants"
 
 const HomePage = () => {
   const [stock, setStock] = useState([])
@@ -17,7 +18,7 @@ const HomePage = () => {
 
   const fetchStock = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/stock/alerts")
+      const response = await axios.get("`${BACKEND_URL}/stock/alerts")
       if (response.data.success) {
         setStock(response.data.data)
         setLowStockCount(response.data.lowStockCount)

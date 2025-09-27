@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import "../styles/SupervisorDashboard.css"
+import { BACKEND_URL } from "../constants"
 
 const SupervisorDashboard = ({ operator }) => {
   const [activeTab, setActiveTab] = useState("dashboard")
@@ -49,7 +50,7 @@ const SupervisorDashboard = ({ operator }) => {
 
   const fetchStock = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/stock/alerts", {
+      const response = await axios.get(`${BACKEND_URL}/stock/alerts`, {
         headers: {
           "user-role": operator.role,
           "user-department": operator.department,
@@ -69,7 +70,7 @@ const SupervisorDashboard = ({ operator }) => {
 
   const fetchOperators = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/operators", {
+      const response = await axios.get(`${BACKEND_URL}/operators`, {
         headers: {
           "user-role": operator.role,
           "user-department": operator.department,
@@ -91,7 +92,7 @@ const SupervisorDashboard = ({ operator }) => {
     }
 
     try {
-      await axios.post("http://localhost:5000/stock", {
+      await axios.post(`${BACKEND_URL}/stock`, {
         ...newProduct,
         quantity: Number.parseInt(newProduct.quantity),
         threshold_value: Number.parseInt(newProduct.threshold_value),
@@ -118,7 +119,7 @@ const SupervisorDashboard = ({ operator }) => {
 
   const handleUpdateProduct = async (productId, updatedData) => {
     try {
-      await axios.put(`http://localhost:5000/stock/${productId}`, {
+      await axios.put(`${BACKEND_URL}/stock/${productId}`, {
         ...updatedData,
         updated_by: operator.username,
         user_role: operator.role,
@@ -137,7 +138,7 @@ const SupervisorDashboard = ({ operator }) => {
   const handleDeleteProduct = async (productId) => {
     if (window.confirm("Are you sure you want to delete this product?")) {
       try {
-        await axios.delete(`http://localhost:5000/stock/${productId}`, {
+        await axios.delete(`${BACKEND_URL}/stock/${productId}`, {
           data: {
             user_role: operator.role,
             user_department: operator.department,

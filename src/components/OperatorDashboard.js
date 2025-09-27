@@ -1,9 +1,13 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { getProducts, updateStock } from "../api";
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import "../styles/OperatorDashboard.css"
+import { BACKEND_URL } from "../constants"
+
+
 
 const OperatorDashboard = ({ operator }) => {
   const [activeTab, setActiveTab] = useState("dashboard")
@@ -62,7 +66,7 @@ const OperatorDashboard = ({ operator }) => {
 
       console.log("📤 Sending headers:", headers)
 
-      const response = await axios.get("http://localhost:5000/stock/alerts", {
+      const response = await axios.get(`${BACKEND_URL}/stock/alerts`, {
         headers: headers,
         timeout: 10000, // 10 second timeout
       })
@@ -113,7 +117,7 @@ const OperatorDashboard = ({ operator }) => {
   // Stock Update Functions
   const handleUpdateStock = async (stockId, updatedData) => {
     try {
-      await axios.put(`http://localhost:5000/stock/${stockId}`, {
+      await axios.put(`${BACKEND_URL}/stock/${stockId}`, {
         ...updatedData,
         updated_by: operator.username,
         user_role: operator.role,

@@ -3,6 +3,7 @@
 // client/src/components/FloatingChatbot.js
 import { useState } from "react"
 import "./FloatingChatbot.css"
+import { BACKEND_URL } from "../constants"
 
 const FloatingChatbot = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -212,7 +213,7 @@ const FloatingChatbot = () => {
       const extractedItem = extractItem(input)
 
       if (extractedItem && extractedItem.type === "DAILY_REPORT") {
-        const res = await fetch(`http://localhost:5000/reports/daily/${extractedItem.date}`)
+        const res = await fetch(`${BACKEND_URL}/reports/daily/${extractedItem.date}`)
         if (res.ok) {
           const data = await res.json()
           if (data.success) {
@@ -251,7 +252,7 @@ const FloatingChatbot = () => {
       }
 
       if (extractedItem && extractedItem.type === "MONTHLY_REPORT") {
-        const res = await fetch(`http://localhost:5000/reports/monthly/${extractedItem.month}`)
+        const res = await fetch(`${BACKEND_URL}/reports/monthly/${extractedItem.month}`)
         if (res.ok) {
           const data = await res.json()
           if (data.success) {
@@ -313,7 +314,7 @@ const FloatingChatbot = () => {
 
       // Handle low stock queries
       if (extractedItem === "LOW_STOCK_QUERY") {
-        const res = await fetch("http://localhost:5000/stock/alerts")
+        const res = await fetch(`${BACKEND_URL}/stock/alerts`)
         if (res.ok) {
           const data = await res.json()
           if (data.success && data.lowStockCount > 0) {
@@ -343,7 +344,7 @@ const FloatingChatbot = () => {
 
       // Handle all stock queries
       if (extractedItem === "ALL_STOCK_QUERY") {
-        const res = await fetch("http://localhost:5000/stock")
+        const res = await fetch(`${BACKEND_URL}/stock`)
         if (res.ok) {
           const data = await res.json()
           if (data.success && data.data.length > 0) {
@@ -387,7 +388,7 @@ const FloatingChatbot = () => {
         return
       }
 
-      const res = await fetch(`http://localhost:5000/get-stock/${extractedItem}`)
+      const res = await fetch(`${BACKEND_URL}/get-stock/${extractedItem}`)
 
       if (res.ok) {
         const contentType = res.headers.get("content-type")

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams, Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import '../styles/LoginPage.css';
+import { loginOperator } from '../api';
 
 const LoginPage = ({ onLogin }) => {
   const [searchParams] = useSearchParams();
@@ -25,13 +25,10 @@ const LoginPage = ({ onLogin }) => {
     setLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:5000/login', {
-        username,
-        password
-      });
+      const response = await loginOperator(username, password);
 
-      if (response.data.success) {
-        const loggedInUser = response.data.operator;
+      if (response && response.success) {
+        const loggedInUser = response.operator;
 
         if (loggedInUser.role !== role) {
           setError(`Invalid credentials for ${role} role.`);

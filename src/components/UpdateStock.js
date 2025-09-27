@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
 import axios from "axios"
 import "../styles/UpdateStock.css"
+import { BACKEND_URL } from "../constants"
 
 const UpdateStock = ({ operator }) => {
   const [stock, setStock] = useState([])
@@ -49,7 +50,7 @@ const UpdateStock = ({ operator }) => {
 
       console.log("📤 Sending headers:", headers)
 
-      const response = await axios.get("http://localhost:5000/stock/alerts", {
+      const response = await axios.get(`${BACKEND_URL}/stock/alerts`, {
         headers: headers,
         timeout: 10000, // 10 second timeout
       })
@@ -107,7 +108,7 @@ const UpdateStock = ({ operator }) => {
 
   const handleUpdateStock = async (stockId, updatedData) => {
     try {
-      await axios.put(`http://localhost:5000/stock/${stockId}`, {
+      await axios.put(`${BACKEND_URL}/stock/${stockId}`, {
         ...updatedData,
         updated_by: operator.username,
         user_role: operator.role,
