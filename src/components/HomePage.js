@@ -1,10 +1,9 @@
-"use client"
-
 import { useState, useEffect } from "react"
 import { Link } from "react-router-dom"
 import axios from "axios"
 import "../styles/HomePage.css"
 import { BACKEND_URL } from "../constants"
+import DebugComponent from "./DebugComponent"
 
 const HomePage = () => {
   const [stock, setStock] = useState([])
@@ -154,6 +153,7 @@ const HomePage = () => {
           </div>
         </div>
       </div>
+      <DebugComponent />
     </div>
   )
 }
