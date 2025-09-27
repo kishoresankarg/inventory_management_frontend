@@ -1,0 +1,323 @@
+.update-stock {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+  padding: 2rem 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 2rem;
+  color: white;
+}
+
+.header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+  color: #ecf0f1;
+}
+
+.header p {
+  font-size: 1.2rem;
+  color: #bdc3c7;
+  margin-bottom: 1rem;
+}
+
+.department-info {
+  margin-top: 1rem;
+}
+
+.department-badge {
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.error-message {
+  background: #e74c3c;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-weight: bold;
+}
+
+.no-data-message {
+  background: white;
+  padding: 3rem;
+  border-radius: 10px;
+  text-align: center;
+  color: #2c3e50;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.no-data-message h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+}
+
+.no-data-message p {
+  color: #7f8c8d;
+  margin: 0.5rem 0;
+}
+
+.table-container {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem;
+}
+
+.stock-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stock-table th {
+  background: #34495e;
+  color: white;
+  padding: 1rem;
+  text-align: left;
+  font-weight: 600;
+}
+
+.stock-table td {
+  padding: 1rem;
+  border-bottom: 1px solid #ecf0f1;
+  vertical-align: middle;
+}
+
+.stock-table tr:hover {
+  background-color: #f8f9fa;
+}
+
+.low-stock-row {
+  background: #fdf2f2;
+}
+
+.low-stock-text {
+  color: #e74c3c;
+  font-weight: bold;
+}
+
+.status-badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.status-badge.low {
+  background: #e74c3c;
+  color: white;
+}
+
+.status-badge.normal {
+  background: #27ae60;
+  color: white;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.edit-input {
+  padding: 0.5rem;
+  border: 2px solid #bdc3c7;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  width: 100px;
+}
+
+.edit-input:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.threshold-display {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.threshold-note {
+  display: block;
+  color: #7f8c8d;
+  font-style: italic;
+  margin-top: 0.25rem;
+}
+
+.alert-icon {
+  margin-left: 0.5rem;
+}
+
+/* Buttons */
+.save-btn,
+.cancel-btn,
+.edit-btn {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.save-btn {
+  background: #27ae60;
+  color: white;
+}
+
+.save-btn:hover {
+  background: #229954;
+}
+
+.cancel-btn {
+  background: #95a5a6;
+  color: white;
+}
+
+.cancel-btn:hover {
+  background: #7f8c8d;
+}
+
+.edit-btn {
+  background: #f39c12;
+  color: white;
+}
+
+.edit-btn:hover {
+  background: #e67e22;
+}
+
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.stat-card {
+  background: white;
+  color: #2c3e50;
+  padding: 1.5rem;
+  border-radius: 10px;
+  text-align: center;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px);
+}
+
+.stat-card.alert {
+  border-left: 5px solid #e74c3c;
+}
+
+.stat-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #7f8c8d;
+  font-size: 1rem;
+}
+
+.stat-card p {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.stat-card.alert p {
+  color: #e74c3c;
+}
+
+.operator-guidelines {
+  background: white;
+  border-radius: 10px;
+  padding: 2rem;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  color: #2c3e50;
+}
+
+.operator-guidelines h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.2rem;
+}
+
+.operator-guidelines ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.operator-guidelines li {
+  padding: 0.5rem 0;
+  color: #2c3e50;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.operator-guidelines li:not(:last-child) {
+  border-bottom: 1px solid #ecf0f1;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 1.2rem;
+  color: #ecf0f1;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 0 1rem;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .stats-section {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .stock-table {
+    font-size: 0.9rem;
+  }
+
+  .stock-table th,
+  .stock-table td {
+    padding: 0.75rem 0.5rem;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .operator-guidelines {
+    padding: 1rem;
+  }
+
+  .operator-guidelines li {
+    font-size: 0.9rem;
+  }
+}
